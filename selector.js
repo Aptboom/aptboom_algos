@@ -1,4 +1,4 @@
-import {getListees, getRate, getSlots, updateRate} from "./Data.js";
+import {getListees, getRate, getSlots, updateRate, tasksDone} from "./Data.js";
 // The Data.js file is responsible for fetching and updating the user data
 // and is not required to understand the whitelisting and raffle algorithms
 // Code for Giveaway is 2, for Whitelist is 1
@@ -14,7 +14,7 @@ export function giveaway_select(code){
     var w = 0.00;
     var weights = [];
     while (i < listees.length){
-        prev_rate = getRate(listees[i], 2); //*
+        prev_rate = getRate(listees[i], 2, tasksDone(code, listees[i])); //*
         w =  w + 1.00 - prev_rate;
         weights.push(w);
         i += 1;
@@ -61,7 +61,7 @@ export function whitelist_select(code){
     var w = 0.00;
     var weights = [];
     while (i < listees.length){
-        prev_rate = getRate(listees[i], 1); //*
+        prev_rate = getRate(listees[i], 1, tasksDone(code, listees[i])); //*
         w =  w + 1.00 - 0.67*prev_rate;
         weights.push(w);
         i += 1;
